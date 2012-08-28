@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<project name="JavaAssignment" default="build-jar" basedir=".">
+
+	<property name="project-name" value="JavaAssignment" />
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="build.classes.dir" value="${basedir}/classes" />
+	<property name="dist.dir" value="${basedir}/dist" />
+	<property name="main.class" value="com.neev.java.assignment.LogExpression" />
+
+	<!-- =================================================================== -->
+	<!-- Build classpath -->
+	<!-- =================================================================== -->
+	<path id="classpath">
+		<pathelement path="${build.classes.dir}" />
+	</path>
+
+	<!-- =================================================================== -->
+	<!-- Prepares the build directory                                        -->
+	<!-- =================================================================== -->
+	<target name="prepare">
+		<mkdir dir="${build.classes.dir}" />
+		<mkdir dir="${dist.dir}" />
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Compiles the source code                                            -->
+	<!-- =================================================================== -->
+	<target name="compile" depends="prepare">
+		<javac srcdir="${src.dir}" destdir="${build.classes.dir}">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+
+	<!-- ===================================================================-->
+	<!-- Build jar							-->
+	<!-- ===================================================================-->
+
+	<target name="build-jar" depends="compile">
+		<jar destfile="${dist.dir}/${project-name}.jar" basedir="${build.classes.dir}" includes="**/*.class">
+			<manifest>
+				<attribute name="Main-Class" value="${main.class}" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Cleans up generated stuff                                           -->
+	<!-- =================================================================== -->
+	<target name="clean">
+		<delete dir="${build.classes.dir}" />
+		<delete dir="${dist.dir}" />
+	</target>
+
+</project>
